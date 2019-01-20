@@ -9,6 +9,26 @@ Tested with:
 
 * MacOSX Sierra (20/01/2019)
 
+## usage
+```shell
+usage: how [-h] [-f] mode
+
+Hands on Workshop CLI helper tool
+---------------------------------
+
+If you run in build mode, the resulting html files will be in the `_build` subfolder.
+
+If you run in live mode, a webserver will be exposed on port 8000.
+You can access that webserver from here: http://localhost:8000
+
+positional arguments:
+  mode         mode of operation, "build" or "live"
+
+optional arguments:
+  -h, --help   show this help message and exit
+  -f, --force  force building even if output directory is not empty
+```
+
 ## Pre-requisites
 * You need to have `docker` installed
 
