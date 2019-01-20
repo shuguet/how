@@ -60,12 +60,12 @@ if args.mode and args.mode.upper() in modes:
     # Check if OUTPUT_DIR is empty
     if os.path.exists(OUTPUT_DIR) and os.path.isdir(OUTPUT_DIR):
         if os.listdir(OUTPUT_DIR) and not args.force:
-            logging.error(f"Error: Output directory ({OUTPUT_DIR}) is not empty.")
+            logging.error(f"Error: Output directory (_build) is not empty.")
         else:
             # Execute whatever mode we're in:
             modes[args.mode.upper()](args)
     else:
-        logging.error(f"Error: Output directory ({OUTPUT_DIR}) don't exists.")
+        logging.error(f"Error: Output directory (_build) don't exists.")
 
 else:
     logging.error(f"Error: mode '{args.mode}' unknown")
