@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# how
+# A wrapper script for invoking shuguet/how with docker
+# Put this script in $PATH as `how`
+
+PROGNAME="$(basename $0)"
+VERSION="latest"
+DOCKER_IMAGE="shuguet/how"
+
+# Helper functions for guards
+error(){
+  error_code=$1
+  echo "ERROR: $2" >&2
+  echo "($PROGNAME wrapper version: $VERSION, error code: $error_code )" &>2
+  exit $1
+}
+
+check_cmd_in_path(){
+  cmd=$1
+  which $cmd > /dev/null 2>&1 || error 1 "$cmd not found!"
+}
+
+# Guards (checks for dependencies)
+check_cmd_in_path docker
+GIT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null)
+if [[ $GIT_ROOT = "$PWD" ]]; then
+  if git check-ignore -q _build; then
+    exec docker run --rm -it \
+                    -v $(pwd):/wd \
+                    -p 8000:8000 $DOCKER_IMAGE:$VERSION "$@"
+  else
+    echo "_build is not in gitignore."
+    echo "Create a $GIT_ROOT/.gitignore file to ignore '/_build'"
+  fi
+else
+  echo "You are not in the root folder of a valid git repository"
+fi
