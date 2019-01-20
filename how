@@ -3,6 +3,7 @@
 # how
 # A wrapper script for invoking shuguet/how with docker
 # Put this script in $PATH as `how`
+# Manual debug run: docker run --rm -it -v $(pwd):/wd -p 8000:8000 shuguet/how:latest "$@"
 
 PROGNAME="$(basename $0)"
 VERSION="latest"
