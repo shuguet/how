@@ -28,7 +28,7 @@ GIT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null)
 if [[ $GIT_ROOT = "$PWD" ]]; then
   if git check-ignore -q _build; then
     exec docker run --rm -it \
-                    -v $(pwd):/wd \
+                    -v "$(pwd):/wd" \
                     -p 8000:8000 $DOCKER_IMAGE:$VERSION "$@"
   else
     echo "_build is not in gitignore."
